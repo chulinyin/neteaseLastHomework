@@ -1,0 +1,520 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	height: 2915px;
+	font: 12px "Microsoft YaHei" ;	
+}
+.clearfix:after{
+	content:".";
+	display: block;
+	clear: both;
+	height: 0;
+	overflow: hidden;
+	visibility: hidden;
+}
+a{
+	text-decoration: none;
+	color: #000;
+}
+a:hover{
+	color: #21a557;
+	text-decoration: underline;
+
+}
+img,span,ul,li{
+	display: inline-block;
+	vertical-align: middle;
+} 
+
+/* 顶部通知条 */
+.m-remder{
+	height: 36px;	
+	font: 12px/3 "Microsoft YaHei","sans-serif"	;
+	background-color: #f3f3f3;
+	color: #333;
+}
+.m-remder{
+	height: 36px;
+	background-color: #f3f3f3;
+	font: 12px/3 "Microsoft YaHei","sans-serif"	;
+}
+.m-remder p,.m-remder a,.m-remder span{
+	display: inline-block;
+}
+.m-remder .g-remder{
+	width: 1206px;
+	margin: 0 auto;
+}
+.m-remder a{
+	color: #21a557;
+}
+.m-remder .f-fr{
+	float: right;
+	cursor: pointer;
+}
+.m-remder img{
+	margin-right: 6px;
+	 
+}
+
+/* 导航栏 */
+.m-nav{
+	height: 90px;
+	box-sizing:border-box;
+	padding-top: 30px;
+}
+.m-nav .g-sd1,.m-nav .g-sd2,img,span,ul,li{
+	display: inline-block;
+	vertical-align: middle;
+} 
+.m-nav .g-nav{
+	width: 1206px;
+	height: 23px;
+	margin: 0 auto 38px;
+}
+.m-nav .g-sd1{
+	height: 23px;
+}
+.m-nav .g-sd1 .ttName{
+	position: relative;
+	top:-3px;
+	margin-left: 11px;
+	margin-right: 30px;
+	font:22px 'Hiragino Sans GB','Microsoft YaHei','sans-serif';
+	color: #333;
+}
+.m-nav .g-sd1 .focus{
+	width:54px;
+	height:21px;
+	margin-right: 14px;
+	border-radius:2px; 
+	color: #fff;
+	font-family: "宋体",serif;
+	background-color: #21a557;
+	
+}
+.m-nav .g-sd1 .focus:hover{
+	cursor: pointer;
+	background-color: #2fb556;
+}
+.m-nav .g-sd1 .focus img{
+	margin: 7px 5px 6px 9px;
+}
+
+.m-nav .g-sd1 .focused{
+	
+	width: 106px;
+	height: 21px;
+	border: 1px solid #efefef;
+	box-sizing:border-box;
+	border-radius:2px; 
+	margin-right: 14px;	
+	padding: 0 6px;
+	background-color: #f8f8f8;	
+	font:12px "宋体",serif;
+}
+.m-nav .focused img{
+	margin-right: 5px;
+}
+.m-nav .focused .u-focused{
+	color: #333;
+}
+.m-nav .focused .u-line{
+	margin: 0 5px;
+	font-size: 10px;
+	color: #ccc;
+}
+.m-nav .focused .u-cancel{
+	font-size: 12px;
+	color: #999;	
+	cursor: pointer;
+}
+.m-nav .focused .u-cancel:hover{
+	text-decoration: underline;
+	color: #21a557;	
+}
+.m-nav .g-sd1 .fans{
+	color: #666;
+	font: 12px/23px "宋体",serif;	
+}
+
+.m-nav .g-sd2{
+	float: right;
+	margin-right: 17px;
+	position: relative;
+	top:4px;
+}
+.m-nav .g-sd2 li{
+	margin-left: 56px;
+	font:16px 'Hiragino Sans GB','Microsoft YaHei','sans-serif';
+	color:#666;
+}
+.m-nav .g-sd2 .u-sch{
+	width: 18px;
+	height: 18px;
+	background: url(../Images/search.png) 0 0 no-repeat;
+	margin-left: 30px;
+}
+.m-nav .g-sd2 .u-sch:hover{
+	background: url(../Images/search_hover.png) 0 0 no-repeat;
+}
+
+/* 轮播图 */
+.m-banner{
+	position: relative;
+	height: 460px;
+}
+/*.m-banner a{	
+	text-align: center;
+	overflow: hidden;
+}*/
+.m-banner .img{
+	height: 460px;
+	width: 100%;	
+}
+.m-banner .img_1{
+	background: url(../Images/banner1.jpg) center;	
+}
+.m-banner .img_2{
+	background: url(../Images/banner2.jpg) center;	
+}
+.m-banner .img_3{
+	background: url(../Images/banner3.jpg) center;	
+}
+.m-banner .pointer{
+	position: absolute;
+	top: 430px;
+	left: 50%;
+	bottom: 20px; 
+	width: 52px;
+	height: 10px;
+	margin-left:  -26px;
+}
+.m-banner .pointer li{
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin-left: 7px;
+	background-color: #fff;
+	vertical-align: top;
+}
+.m-banner .pointer .sld_1{
+	margin-left:0;
+}
+.m-banner .pointer .z-sel{
+	background-color: #333;
+}
+
+
+/* 产品简介 */
+.m-intros{
+	box-sizing: border-box;
+	padding-top: 61px;
+}
+.m-intros .g-intros{
+	width: 1187px;
+	margin:0 auto 61px;
+}
+.m-intros .open,.study,.mooc,.intros{
+	display: inline-block;
+}
+.m-intros img{
+	vertical-align: top;
+	margin-top: 7px;
+}
+.m-intros .intros{
+	margin-left: 20px;
+	margin-right: 77px;
+}
+.m-intros .mooc .intros{
+	margin-right: 0;
+}
+.m-intros .intros h3{
+	margin-bottom: 21px;
+	font:22px/20px 'Microsoft YaHei','sans-serif';
+	color: #333;
+}
+.m-intros .intros p{
+	width: 238px;
+	margin-bottom: 24px;
+	font:14px/24px 'Microsoft YaHei','sans-serif';
+	color: #666;
+}
+.m-intros a{
+	font-size: 14px;
+	color: #39a030;
+}
+
+/* 办公环境 */
+.m-office{
+	width: 1616px;
+	height: 220px;
+	overflow: hidden;
+}
+.m-office img:first-child{
+	margin-left: -134px;
+}
+.m-office img:last-child{
+	margin-right: -134px;
+}
+
+/* 
+ * 课程内容区
+ * Tab切换
+ */
+
+.m-courses{	
+	height: 1552px;
+	box-sizing: border-box;
+	padding-top: 81px;
+	background-color: #f8f8f8;
+}
+.m-courses .g-hd{
+	width: 1206px;
+	margin: 0 auto;	
+}
+.m-courses  .g-hd .tab{
+	width: 400px;
+	height: 50px;
+	box-shadow: 0 1px 1px #ccc;
+}
+.m-courses .tab li{
+	width:200px;
+	font:20px/50px 'Microsoft YaHei','sans-serif';
+	background-color: #fff;
+	color: #666;
+	text-align: center;
+	cursor: pointer;
+}
+.m-courses .tab .z-sel{
+	background-color: #39a030;
+	color: #fff;
+}
+/* 
+ * 课程内容区
+ * 课程卡片
+ */
+.m-courses .g-mn{
+	position: relative;
+	float: left;
+	width: 960px;
+	height: 1271px;
+	margin-top: 30px;
+	outline: 1px solid #ddd;
+}
+.m-courses .g-mn .m-pager{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+/* 
+ * 课程内容区
+ * 侧边栏
+ */
+.m-courses .g-sd{
+	float: right;
+	width: 223px;
+	margin-top: -50px;
+	margin-left: 23px;	
+}
+
+.m-courses .ofisIntro{
+	background-color: #fff;
+	padding-left: 22px;
+	box-shadow: 0 1px 1px #ccc;
+}
+.m-courses .hotRank{
+	background-color: #fff;
+	padding-left: 22px;
+	box-shadow: 0 1px 1px #ccc;
+}
+.m-courses .g-sd h4{
+	height: 56px;
+	margin-left: -22px;
+	text-indent: 22px;
+	border-bottom: 1px solid #ddd;
+	font:16px/56px 'Microsoft YaHei','sans-serif';
+	color: #333;
+}
+
+.m-courses .g-sd .video{
+	position: relative;
+	background-color: #fff;
+}
+.m-courses .g-sd .video p{
+	margin-top: 21px;
+	margin-bottom: 9px;
+	font: 14px 'Microsoft YaHei','sans-serif';
+	color: #666;
+
+}
+.m-courses .g-sd .video img{
+	margin-bottom: 20px;
+	cursor: pointer;
+}
+.m-courses .g-sd .video .u-open{
+	display: none;
+	position: absolute;
+	width: 46px;
+	height: 46px;
+	top: 60px;
+	left: 66px;
+	background-image: url(../Images/video_hover.png);
+}
+.m-courses .g-sd .video:hover .u-open {
+	display: block;
+}
+.m-courses .g-sd .hotRank{
+	margin-top: 21px;
+}
+.m-courses .hotCourses{
+	background-color: #fff;
+}
+
+
+/* 
+ * 页脚
+ */
+.m-footer{
+	height: 262px;
+	box-sizing: border-box;
+	padding-top: 82px;
+	background-color: #2c3339;
+}
+.m-footer .g-ft{
+ margin-left: 121px;
+}
+
+.m-footer p{
+	margin-bottom: 16px;
+	font: 12.5px 'Microsoft YaHei','sans-serif'; 
+	color: #fff;
+	opacity: 0.6;
+}
+.m-footer a{
+	font: 14.5px 'Microsoft YaHei','sans-serif';
+	color: #fff;
+}
+.m-footer .cmpny{
+	display: inline-block;
+	vertical-align: top;
+	height: 87px;
+	margin-top: 11px;
+	margin-right: 150px;
+}	
+.m-footer .cmpny .logo{
+	margin-bottom: 23px;
+}
+.m-footer .ttName{
+	position: relative;
+	top:-7px;
+	margin-left: 11px;
+	font:22px 'Hiragino Sans GB','Microsoft YaHei','sans-serif';
+	color: #39a030;
+	vertical-align: top;
+}
+.m-footer .cmpny p{	
+	margin-bottom: 11px;
+}
+
+.m-footer .link{
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 98px;
+}
+.m-footer .about{
+	display: inline-block;
+	vertical-align: top;
+}
+.m-footer .about p:nth-child(4) img{
+	margin-left: 11px;
+	margin-right: 73px;
+}
+.m-footer .more{
+	display: inline-block;
+	vertical-align: top;
+}
+
+/* 
+ * 登录弹窗
+ */
+.m-login{
+	position: fixed;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+	background-color: rgba(0,0,0,0.8);
+}
+
+.m-login .g-login{
+	position: fixed;
+	top:50%;
+	left: 50%;
+	width: 350px;
+	height: 288px;
+	margin-left: -194px;
+	margin-top: -144px;
+	z-index:10;
+	background: #fff;
+	padding-left: 39px;
+
+}
+.m-login .g-login .u-clos{
+	float: right;
+	width: 9px;
+	height: 9px;
+	margin-top: 12px;
+	margin-right: 10px;
+	background: url(../Images/close.png);
+	cursor: pointer;
+}
+.m-login .g-login .ttName{
+	padding-top: 30px;
+	color: #444;
+	font:bold 18px 'Microsoft YaHei','sans-serif';	
+	margin-bottom: 20px;
+}
+.m-login .g-login .tips{
+	color: #f06868;
+	font: 12px '宋体','serif';	
+	margin-bottom: 5px;
+
+}
+.m-login .g-login input{
+	width: 293px;
+	height: 45px;
+	box-sizing:border-box;
+	margin-bottom: 15px;
+	padding-left: 11px;
+	border: 1px solid #dfdfdf;
+	box-shadow: inset 1px 1px 0 0.1px #ccc;
+	color: #ccc;
+	font: 16px/45px 'Microsoft YaHei','sans-serif';
+
+}
+
+.m-login .g-login button{
+	width: 293px;
+	height: 45px;
+	margin-top: 11px;
+	background: url(../Images/loginButton.png);
+	border: none;
+}
+
+
+@media screen and (max-width: 1206px) {	
+    .m-remder .g-remder,
+    .m-nav .g-nav,
+    .m-intros .g-intros,
+    .m-courses .g-hd{
+    	width: 960px; 
+    }
+    .m-intros .intros p{width: 155px;}
+    .m-courses .g-mn{width: 735px	; }
+
+}
