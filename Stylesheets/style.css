@@ -166,11 +166,11 @@ img,span,ul,li{
 	position: relative;
 	height: 460px;
 }
-/*.m-banner a{	
-	text-align: center;
-	overflow: hidden;
-}*/
+
 .m-banner .img{
+	position: absolute;
+	left: 0;
+	top: 0;
 	height: 460px;
 	width: 100%;	
 }
@@ -191,16 +191,17 @@ img,span,ul,li{
 	width: 52px;
 	height: 10px;
 	margin-left:  -26px;
+	z-index: 5;
 }
 .m-banner .pointer li{
 	width: 10px;
 	height: 10px;
 	border-radius: 50%;
-	margin-left: 7px;
+	margin-left: 11px;
 	background-color: #fff;
 	vertical-align: top;
 }
-.m-banner .pointer .sld_1{
+.m-banner .pointer li:first-child{
 	margin-left:0;
 }
 .m-banner .pointer .z-sel{
