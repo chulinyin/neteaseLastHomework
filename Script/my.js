@@ -195,23 +195,20 @@ function initLogin (){
  *功能点三
  *轮播图
  */
-/* 元素隐藏函数 */
-function hidden(ele){   
-    ele.style.display = "none";
-    ele.style.opacity = "0";
-}
+
 /* 淡入函数 */
-function fadein(ele,milliseconds,hiddenEle){
-    ele.style.display="block";
-    ele.style["z-index"] = "2";
+function fadein(curImg,milliseconds,preImg){
+    curImg.style.display="block";
+    curImg.style["z-index"] = "2";
     var stepLength = 10/milliseconds;
     var step = function(){
-        var nextOpacity = parseFloat(ele.style.opacity) + stepLength;
+        var nextOpacity = parseFloat(curImg.style.opacity) + stepLength;
         if(nextOpacity<1){
-            ele.style.opacity = nextOpacity;
+            curImg.style.opacity = nextOpacity;
         }else{
-            ele.style.opacity = "1";
-            hidden(hiddenEle);          
+            curImg.style.opacity = "1";
+            preImg.style.display = "none";
+            preImg.style.opacity = "0";
             clearInterval(intervalID);
         }
     }           
@@ -219,98 +216,44 @@ function fadein(ele,milliseconds,hiddenEle){
 }
 
 /* 切换图片函数 */
-function changeImages(milliseconds){
-    var flag =1;
-    var banners = document.querySelector(".m-banner");
-    var banner1 = banners.querySelector(".img_1");
-    var banner2 = banners.querySelector(".img_2");
-    var banner3 = banners.querySelector(".img_3");
-	//图片淡出切换    
-    function slide(){
-        var length = arguments.length;
-        var preImg, curImg,nextImg;
-        if(flag<=0){
-            preImg = arguments[length-1];
-            curImg = arguments[flag];
-            nextImg = arguments[flag+1];
-        }else if(flag>=length-1){
-            preImg = arguments[flag-1];
-            curImg = arguments[flag];
-            nextImg = arguments[0];
-        }else{
-            preImg = arguments[flag-1];
-            curImg = arguments[flag];
-            nextImg = arguments[flag+1];
-        }
-        preImg.style["z-index"] = "1";//必须先将前一个元素降级，否则第一个元素的淡出会有问题
-        fadein(curImg,500,preImg);      
-        if(++flag>=length){flag = 0;}
-    }
-    var intervalID = setInterval(function(){
-        slide(banner1,banner2,banner3);
-    },milliseconds);
+function changeImages(pre,cur){
+    var imgs = document.querySelectorAll(".m-banner .img");
+    var preImg = imgs[pre];
+    var curImg = imgs[cur];
+    //图片淡出切换      
+    preImg.style["z-index"] = "1";//必须先将前一个元素降级，否则第一个元素的淡出会有问题
+    fadein(curImg,500,preImg);      
 
-   banners.onmouseover = function() {
-		clearInterval(intervalID);
-	}
-/*	banners.onmouseout = function() {
-		var intervalID = setInterval(function(){
-        	slide(banner1,banner2,banner3);
-   		},milliseconds);
-	}*/
+ 
 }
 /* 切换圆点函数 */
-function changePoints(milliseconds){
-	var flag = 1;
-	var banners = document.querySelector(".m-banner");
-	var points = document.querySelectorAll(".m-banner .pointer li");
-	point1 = points[0];
-	point2 = points[1];
-	point3 = points[2];
-	function slide(){
-		var length = arguments.length;
-        var prePoint, curPoint,nextPoint;
-        if(flag<=0){
-            prePoint = arguments[length-1];
-            curPoint = arguments[flag];
-            nextPoint = arguments[flag+1];
-        }else if(flag>=length-1){
-            prePoint = arguments[flag-1];
-            curPoint = arguments[flag];
-            nextPoint = arguments[0];
-        }else{
-            prePoint = arguments[flag-1];
-            curPoint = arguments[flag];
-            nextPoint = arguments[flag+1];
-        }
-    	curPoint.setAttribute("class","z-sel"); 	   	
-		prePoint.setAttribute("class","");       
-        if(++flag>=length){flag = 0;}
-	}	  
-    var intervalID = setInterval(function(){
-        slide(point1,point2,point3);
-    },milliseconds);
-   banners.onmouseover = function() {
-		clearInterval(intervalID);
-	}
-/* 	banners.onmouseout = function() {
-		var intervalID = setInterval(function(){
-       		slide(point1,point2,point3);
-    	},milliseconds);
-	}*/
+function changePoints(pre,cur){
+    var points = document.querySelectorAll(".m-banner .pointer li");
+    prePoint = points[pre];
+    curPoint = points[cur];
+    curPoint.setAttribute("class","z-sel");         
+    prePoint.setAttribute("class","");              
 }
 
-/* 切换图片和圆点函数 */
-function slideBanners(){
-	changeImages(5000);
-    changePoints(5000);    
+/* 轮播初始化 */
+function initBanner(){
+    var banners = document.querySelector(".m-banner");
+    var pre = 0;
+    function slideBanners(){
+        var cur = (pre == 2) ? 0:pre + 1;
+        changeImages(pre,cur);
+        changePoints(pre,cur);   
+        pre = cur ; 
+    }   
+    var id = setInterval(slideBanners, 5000);
+    addEvent(banners,"mouseenter",function(event){
+        clearInterval(id);
+    });
+    addEvent(banners,"mouseleave",function(event){
+        id = setInterval(slideBanners, 5000);
+    })
 }
-slideBanners();
+initBanner();
+ 
 
-/*var id = setInterval(autoChangeImgs, 5000);
-slide.onmouseover = function() {
-	clearInterval(id);
-}
-slide.onmouseout = function() {
-	id = setInterval(autoChangeImgs, 5000);
-}*/
+
