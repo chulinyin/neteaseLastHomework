@@ -249,18 +249,39 @@ img,span,ul,li{
 }
 
 /* 办公环境 */
-.m-office{
-	width: 1616px;
-	height: 220px;
-	overflow: hidden;
+
+
+.m-office {
+    position: relative;
+    width: 1349px;
+    left: 50%;
+	margin-left: -675px;
+    overflow: hidden;
+	font-size: 0;
+	line-height: 0;
 }
-.m-office img:first-child{
+.m-office span{
+	width: 320px;
+	height: 200px;
+	margin-right: 4px;
+}
+.m-office span:first-child{
+	background: url(../Images/1.jpg);
 	margin-left: -134px;
 }
-.m-office img:last-child{
+.m-office span:nth-child(2){
+	background: url(../Images/2.jpg);
+}
+.m-office span:nth-child(3){
+	background: url(../Images/3.jpg);
+}
+.m-office span:nth-child(4){
+	background: url(../Images/4.jpg);
+}
+.m-office span:nth-child(5){
+	background: url(../Images/5.jpg);
 	margin-right: -134px;
 }
-
 /* 
  * 课程内容区
  * Tab切换
