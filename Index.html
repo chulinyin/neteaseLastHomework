@@ -108,7 +108,7 @@
 
 <!-- 课程内容区 -->
 <div class="m-courses">
-    <div class="g-hd">
+    <div class="g-courses clearfix">
         <!-- 课程Tab切换 -->
         <ul class="tab">
              <li class="z-sel">产品设计</li><!-- 
@@ -117,8 +117,13 @@
         <!-- /课程Tab切换 -->
 
         <!-- 课程卡片 -->
-        <div class="g-mn">
-            <div class="m-pager"></div>   
+        <div class="g-mn clearfix">
+            <div class="mainCous"></div>
+            <div class="m-pages">
+                <img src="Images/prePage.png" alt="前一页">
+                <ul></ul>
+                <img src="Images/nextPage.png" alt="后一页">
+            </div>   
         </div>
         <!-- /课程卡片 -->
 
@@ -136,9 +141,7 @@
             <!-- 热门推荐 -->
             <div class="hotRank">
                 <h4>最热排行</h4>
-                <div class="hotCourses">
-                        
-                </div>           
+                <div class="hotCourses"></div>   
             </div>
             <!-- /热门推荐 -->
         </div>
@@ -208,6 +211,7 @@
     </div>
 </div>
 <!-- /页脚 -->
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 <script src="Script/md5.js" type="text/javascript"></script>
 <script src="Script/my.js" type="text/javascript"></script>
 </body>                          

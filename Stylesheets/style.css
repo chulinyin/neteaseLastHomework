@@ -249,8 +249,6 @@ img,span,ul,li{
 }
 
 /* 办公环境 */
-
-
 .m-office {
     position: relative;
     width: 1349px;
@@ -293,11 +291,11 @@ img,span,ul,li{
 	padding-top: 81px;
 	background-color: #f8f8f8;
 }
-.m-courses .g-hd{
+.m-courses .g-courses{
 	width: 1206px;
 	margin: 0 auto;	
 }
-.m-courses  .g-hd .tab{
+.m-courses  .g-courses .tab{
 	width: 400px;
 	height: 50px;
 	box-shadow: 0 1px 1px #ccc;
@@ -321,17 +319,163 @@ img,span,ul,li{
 .m-courses .g-mn{
 	position: relative;
 	float: left;
-	width: 960px;
+	width: 980px;
 	height: 1271px;
 	margin-top: 30px;
-	outline: 1px solid #ddd;
-}
-.m-courses .g-mn .m-pager{
-	position: absolute;
-	right: 0;
-	bottom: 0;
 }
 
+.m-courses .mainCous .card{
+	position: relative;
+	display: inline-block;
+}
+.m-courses .mainCous .cardSimple{
+	display: inline-block;
+	width: 225px;
+	height: 228px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	box-sizing:border-box;
+	box-shadow: 0 1px 2px  #aaa;
+	padding: 1px;
+	background-color: #fff;
+}
+.m-courses .cardSimple .u-infro{
+	margin: 9px 0 9px 5px;
+ 	font: 12px "Microsoft YaHei","serif";
+}
+.m-courses .cardSimple .u-infro .name{
+	margin-bottom: 7px;
+	color: #39a030;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.m-courses .cardSimple .u-infro .provider{
+	color: #999;
+}
+.m-courses .cardSimple .u-infro .learnerCount{
+	display: inline-block;
+	height: 18px;
+	box-sizing: border-box;
+	border: 1px solid #ddd;
+	border-radius: 2px;
+	margin-bottom: 8px;
+	padding: 3px;
+	font-size: 0;
+}
+.m-courses .cardSimple .learnerCount .icon{
+	width: 10px;
+	height: 10px;
+	background: url(../Images/learner.png);
+	vertical-align: top;
+	margin-right: 5px;
+}
+.m-courses .cardSimple .learnerCount .count{
+	font-size: 12px;
+	line-height: 10px;
+	color: #999;
+	vertical-align: top;
+}
+.m-courses .cardSimple .u-infro .price{
+	font-weight: bold;
+	color: #ff3f00;
+}
+
+.m-courses .mainCous .cardDetail{
+	display: none;
+}
+.m-courses .mainCous .card:hover .cardDetail{
+	display: block;
+	position: absolute;	
+	z-index: 90;
+	top: -10px;
+	left: -10px;
+	width: 480px;
+	height: 238px;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	box-shadow: 0 1px 2px  #ddd;
+	background-color: #fff;
+	color: #666;
+}
+.m-courses .cardDetail img{
+	margin: 10px 20px 20px 10px;
+}
+.m-courses .cardDetail .u-infro{
+ 	display: inline-block;
+ 	vertical-align: top;
+ 	margin-top: 15px;
+ 	font-size: 12px;
+}
+.m-courses .cardDetail .u-infro .name{
+	width: 224px;
+	font-size: 18px;
+	color: #333;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.m-courses .cardDetail .u-infro .name:hover{
+	overflow: visible;
+}
+.m-courses .cardDetail .u-infro .learnerCount{
+	margin:  14px 0;
+}
+.m-courses .cardDetail .learnerCount .icon{
+	width: 10px;
+	height: 12px;
+	background: url(../Images/learner.png) no-repeat;
+	margin-right: 6px;
+}
+.m-courses .cardDetail .learnerCount .count{
+	font-size: 12px;
+}
+.m-courses .cardDetail .u-infro .provider{
+	margin-bottom: 8px;
+}
+.m-courses .cardDetail .description{
+	height: 80px;
+	box-sizing: border-box;
+	padding: 10px 33px 10px 21px;
+	background-color: #f8f8f8;		
+}
+.m-courses .cardDetail .description p{
+	height: 60px;
+	line-height: 20px;
+	overflow: hidden;
+	font-size: 14px;
+}
+/* 翻页器 */
+.m-courses .g-mn .m-pages{
+	position: absolute;
+	height: 20px;
+	right: 20px;
+	bottom: 0;
+}
+.m-courses .g-mn .m-pages ul{
+	font-size: 0;
+}
+.m-courses .g-mn .m-pages li {
+	font: 14px/20px "Microsoft YaHei","serif";
+	color: #666;
+	margin: 0 5px;
+	cursor: pointer;
+}
+.m-courses .g-mn .m-pages .z-sel{
+	width: 20px;
+	height: 20px;
+	margin: 0 15px;
+	text-align: center;
+	color: #fff;
+	background-color: #9dd8b1;
+}
+.m-courses .g-mn .m-pages li:hover{
+	color: #39a030;
+	
+}
+.m-courses .g-mn .m-pages img{
+	cursor: pointer;
+}
 /* 
  * 课程内容区
  * 侧边栏
@@ -340,7 +484,7 @@ img,span,ul,li{
 	float: right;
 	width: 223px;
 	margin-top: -50px;
-	margin-left: 23px;	
+	/*margin-left: 23px;	*/
 }
 
 .m-courses .ofisIntro{
@@ -349,8 +493,9 @@ img,span,ul,li{
 	box-shadow: 0 1px 1px #ccc;
 }
 .m-courses .hotRank{
-	background-color: #fff;
-	padding-left: 22px;
+	margin-top: 21px;
+	padding:0 0 20px 20px;
+	background-color: #fff;	
 	box-shadow: 0 1px 1px #ccc;
 }
 .m-courses .g-sd h4{
@@ -389,14 +534,51 @@ img,span,ul,li{
 .m-courses .g-sd .video:hover .u-open {
 	display: block;
 }
-.m-courses .g-sd .hotRank{
-	margin-top: 21px;
-}
+
 .m-courses .hotCourses{
 	background-color: #fff;
 }
+.m-courses .hotRank .hotcard{
+	height: 50px;
+	margin-top: 20px;
+} 
 
+.m-courses .hotcard .u-infro{
+	display: inline-block;
+	margin-left: 12px;
+}
+.m-courses .hotcard .u-infro .name{
+	width: 120px;
+	font: 14px "Microsoft YaHei","serif";
+	color: #333;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.m-courses .hotcard .u-infro .name:hover{
+	overflow: visible;
 
+}
+ 
+.m-courses .hotcard .u-infro .learnerCount{
+	display: inline-block;
+	height: 18px;
+	margin-top: 11px;
+	font-size: 0;
+}
+.m-courses .hotcard .learnerCount .icon{
+	width: 10px;
+	height: 10px;
+	background: url(../Images/learner.png);
+	vertical-align: top;
+	margin-right: 5px;
+}
+.m-courses .hotcard .learnerCount .count{
+	font-size: 12px;
+	line-height: 10px;
+	color: #999;
+	vertical-align: top;
+} 
 /* 
  * 页脚
  */
@@ -407,7 +589,8 @@ img,span,ul,li{
 	background-color: #2c3339;
 }
 .m-footer .g-ft{
- margin-left: 121px;
+	width: 955px;
+ 	margin-left: 121px;
 }
 
 .m-footer p{
@@ -533,10 +716,10 @@ img,span,ul,li{
     .m-remder .g-remder,
     .m-nav .g-nav,
     .m-intros .g-intros,
-    .m-courses .g-hd{
+    .m-courses .g-courses{
     	width: 960px; 
     }
     .m-intros .intros p{width: 155px;}
-    .m-courses .g-mn{width: 735px	; }
+    .m-courses .g-mn{width: 735px;}
 
 }
