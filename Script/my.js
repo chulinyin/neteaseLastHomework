@@ -10,6 +10,33 @@ function addEvent(node,event,handler){
                 node.attachEvent('on'+event,handler);
             }
         }
+/* getElementsByClassName的兼容 */
+function getElementsByClassName(element, names) {
+        if (element.getElementsByClassName) {
+            return element.getElementsByClassName(names);
+        } else {
+            var elements = element.getElementsByTagName('*');
+            var result = [];
+            var element,
+                classNameStr,
+                flag;
+            names = names.split(' ');
+            for (var i = 0; element = elements[i]; i++) {
+                classNameStr = ' ' + element.className + ' ';
+                flag = true;
+                for (var j = 0, name; name = names[j]; j++) {
+                    if (classNameStr.indexOf(' ' + name + '') == -1) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    result.push(element);
+                }
+            }
+            return result;
+        }
+    }
 /* cookie的获取、设置和删除 */
 var Cookie = {
 	get: function(name){
@@ -86,11 +113,47 @@ function serialize(url,data){
 
 
 /*
+ *IE8的响应式兼容
+ */
+function responsive(){
+    if(navigator.userAgent.indexOf("MSIE 8.0")>0) {
+        var g_remder = document.querySelector(".m-remder .g-remder");
+        var g_nav = document.querySelector(".m-nav .g-nav");
+        var g_intros = document.querySelector(".m-intros .g-intros");
+        var g_intros_p = document.querySelectorAll(".m-intros .g-intros p");
+        var g_courses = document.querySelector(".m-courses .g-courses");
+        var g_mn = document.querySelector(".m-courses .g-mn");
+        addEvent(window,"resize",function(event){
+            if(document.body.clientWidth<1206){
+                g_remder.style.width = "960px";
+                g_nav.style.width = "960px";
+                g_intros.style.width = "960px";
+                g_courses.style.width = "960px";
+
+                g_mn.style.width = "735px";
+                g_intros_p[0].style.width = "155px"; 
+                g_intros_p[1].style.width = "155px"; 
+                g_intros_p[2].style.width = "155px"; 
+            }else{
+                g_remder.style.width = "";
+                g_nav.style.width = "";
+                g_intros.style.width = "";
+                g_courses.style.width = "";
+
+                g_mn.style.width = "";
+                g_intros_p[0].style.width = ""; 
+                g_intros_p[1].style.width = ""; 
+                g_intros_p[2].style.width = ""; 
+            }
+        });    
+    }
+}
+/*
  *功能点一
  *关闭顶部通知条
  */
 function closeTips(){
-	var ele =  document.getElementsByClassName("m-remder")[0];
+	var ele =  document.querySelector(".m-remder");
 	var close = ele.querySelector(".f-fr");
 	if(Cookie.get("tips")=="close"){
 		ele.style.display="none";
@@ -155,24 +218,29 @@ function initFoucusEvent(){
 	addEvent(cancelBtn,'click',cancelfocused);
 }
 
-
 /* 初始化登录框 */
 function initLogin (){
-	var m_login = document.getElementsByClassName("m-login")[0];
+	var m_login = document.querySelector(".m-login");
 	var loginForm = document.forms.login; 
 	var closeBtn = m_login.querySelector(".u-clos");
 	// 弹出登录框
 	m_login.style.display="block";
 	// 单击关闭登录框
 	addEvent(closeBtn,'click',function(event){
-	m_login.style.display="none";
+	    m_login.style.display="none";
 	})
 	// 提交表单
 	addEvent(loginForm,'submit',function(event){
 		// 阻止表单默认提交
 		var event = event || window.event;
-		event.preventDefault();
-		window.event.returnValue=false;
+		if(event.preventDefault){
+            event.preventDefault();
+        }
+        else{
+            event.returnValue = false;
+        }
+		
+        debugger;
 		// 账密验证登录
 		var v_userName = loginForm.elements['userName'].value;
 		var v_password = loginForm.elements['password'].value;
@@ -210,10 +278,13 @@ function fadein(curImg,milliseconds,preImg){
         var nextOpacity = parseFloat(curImg.style.opacity) + stepLength;
         if(nextOpacity<1){
             curImg.style.opacity = nextOpacity;
+            curImg.style.filter = 'alpha(opacity=' + nextOpacity*100 +')';
         }else{
             curImg.style.opacity = "1";
+            curImg.style.filter = "alpha(opacity=100)";
             preImg.style.display = "none";
             preImg.style.opacity = "0";
+            preImg.style.filter = "alpha(opacity=0)";
             clearInterval(intervalID);
         }
     }           
@@ -259,7 +330,7 @@ function initBanner(){
     })
 }
 
- 
+
 /*
  *功能点五
  *获取课程内容区
@@ -291,7 +362,7 @@ function getcourse(courseUrl,reqstData){
 */
 function cardsHTML(data){
     var courseList = data.list;
-    var courseDiv = document.getElementsByClassName("m-courses")[0];
+    var courseDiv = document.querySelector(".m-courses");
     var CourseNode = courseDiv.querySelector(".mainCous");
     CourseNode.innerHTML = '';
     for(var i=0;i<courseList.length;i++){ 
@@ -336,6 +407,9 @@ function cardsHTML(data){
  */
 function updatePageObj(reqstData,data){
     var totalPage = data.totalPage;
+    if(reqstData.pageNo>totalPage){
+        reqstData.pageNo = totalPage;
+    }//为了适应在窄屏下选择了>27页，然后屏幕变为宽屏后出现的问题
     var obj = {
         sel: parseInt(reqstData.pageNo),
         from: 1,
@@ -362,112 +436,21 @@ function updatePageObj(reqstData,data){
  */
 function pagesHTML(page){
     var pageNode = document.querySelector(".m-courses .m-pages ul");
-    pageNode.innerHTML = '';
+    pageNode.querySelector(".z-sel").removeAttribute('class');
     var selpage;
-    for(var i=page.from;i<=page.to;i++){
-        pageNode.innerHTML += '<li>'+ i;
-        pageNode.innerHTML +='</li>';   
+    for(var i=page.from,j=0;i<=page.to;i++){
+        pageNode.querySelectorAll("li")[j].innerHTML = i;
+        j++;         
     }
     if(page.sel<=4){
         selpage=pageNode.querySelectorAll("li")[page.sel-1];
     }else if(page.sel>=page.total-4){
-        selpage=pageNode.querySelectorAll("li")[page.sel-20];
+        selpage=pageNode.querySelectorAll("li")[page.sel-(page.total-7)];
     }else{
         selpage=pageNode.querySelectorAll("li")[3];
     }
     selpage.setAttribute('class','z-sel');
 }
-
-/*为翻页器添加单击事件监听*/
-function addclickEvent(page,courseUrl,reqstData){
-    var pageNode = document.querySelector(".m-courses .m-pages"); // 翻页器模块节点
-    var allPages = pageNode.querySelectorAll("ul li");   // 所有页码集合节点
-    var prePageNode = pageNode.querySelectorAll("img")[0]; // 前翻页节点
-    var nextPageNode = pageNode.querySelectorAll("img")[1]; // 后翻页节点
-    
-    /* 为所有页码添加单击事件监听 */ 
-    for(var i=0;i<8;i++){
-        (function(_i){
-            addEvent(allPages[_i],"click",function(event){
-                var prePage = pageNode.querySelector("ul .z-sel");
-                prePage.setAttribute("class","");
-                reqstData.pageNo = allPages[_i].textContent;
-                changePage(courseUrl,reqstData);               
-            })  
-        })(i);          
-    }  
-    /* 为前翻页和后翻页节点添加单击事件监听 */     
-    addEvent(prePageNode,"click",function(event){
-        if(page.sel>1){
-            reqstData.pageNo = page.sel-1;
-            changePage(courseUrl,reqstData); 
-        }
-    });
-    addEvent(nextPageNode,"click",function(event){
-        if(page.sel<page.to){
-            reqstData.pageNo = page.sel+1;
-            changePage(courseUrl,reqstData); 
-        }
-    })  
-}
-/*
- *功能：根据请求参数的变化，
- *		更新翻页器(更新页码和监听)以及课程卡片
- *输入：课程地址，以及请求参数
- *输出：新的课程内容区
- */
-function changePage(courseUrl,reqstData){
-    var data = getcourse(courseUrl,reqstData);
-    var page = updatePageObj(reqstData,data);
-    pagesHTML(page);
-    addclickEvent(page,courseUrl,reqstData);
-    cardsHTML(data);
-}
-/*
- *功能：监听tab的选中变化，由此切换课程
- *输入：课程地址，以及请求参数
- *输出：课程数据组成的对象
- */
-function changeTab(courseUrl,reqstData){
-    // changePage(courseUrl,reqstData);
-    var tab = document.querySelectorAll(".m-courses .tab li");
-    var tabProduct = tab[0];
-    var tabProgram = tab[1];
-    addEvent(tabProduct,"click",function(event){
-        tabProduct.setAttribute("class","z-sel");
-        tabProgram.setAttribute("class","");
-        reqstData.type = 10;
-        reqstData.pageNo = 1;
-        changePage(courseUrl,reqstData);
-    })  
-    addEvent(tabProgram,"click",function(event){
-        tabProgram.setAttribute("class","z-sel");
-        tabProduct.setAttribute("class","");
-        reqstData.type = 20;
-        reqstData.pageNo = 1;
-        changePage(courseUrl,reqstData);
-    })  
-}
-/*
- *功能：监听窗口大小的变化，实现响应式课程卡片，
- *      当窗口宽度小于1206px时,每页请求20个数据；
- *      当窗口宽度大于等于1206px时，每页请求15个数据。
- *输入：课程地址，以及请求参数
- *输出：指定数据个数的课程卡片和页码
- */
-function changeWidth(courseUrl,reqstData){
-    changePage(courseUrl,reqstData);
-    addEvent(window,"resize",function(event){
-        if(document.body.clientWidth<1206){
-            reqstData.psize = 15;
-            changePage(courseUrl,reqstData);
-        }else{
-            reqstData.psize = 20;
-            changePage(courseUrl,reqstData);
-        }
-    })
-}
-
 
 /* 初始化课程卡片 */
 function initMainCourses(){
@@ -476,15 +459,92 @@ function initMainCourses(){
         pageNo: 1, 
         psize: 20,
         type: 10
-    };  
+    }; 
     if(document.body.clientWidth<1206){
         reqstData.psize = 15;   
-    }//防止在小窗口状态下刷新页面时返回20个卡片  
-    changeWidth(courseUrl,reqstData);
-    changeTab(courseUrl,reqstData);   
+    }//防止在小窗口状态下刷新页面时返回20个卡片 
+
+    /* 初始化返回参数和页码对象 */
+    var data = getcourse(courseUrl,reqstData);
+    var page = updatePageObj(reqstData,data);
+    /*
+     *功能：根据请求参数的变化，
+     *      更新翻页器(更新页码和监听)以及课程卡片
+     *输入：课程地址，以及请求参数
+     *输出：新的课程内容区
+     */
+    function changePage(courseUrl,reqstData){
+        data = getcourse(courseUrl,reqstData);
+        page = updatePageObj(reqstData,data);
+        pagesHTML(page);
+        cardsHTML(data);
+    }
+
+    /* 监听窗口大小的变化，实现响应式课程卡片 */
+    (function changeWidth(){
+        changePage(courseUrl,reqstData);
+        addEvent(window,"resize",function(event){
+            if(document.body.clientWidth<1206){
+                reqstData.psize = 15;
+                changePage(courseUrl,reqstData);
+            }else{
+                reqstData.psize = 20;
+                changePage(courseUrl,reqstData);
+            }
+        })
+    })();
+
+    /* 监听tab的选中变化，由此切换课程 */
+    (function changeTab(){
+        var tab = document.querySelectorAll(".m-courses .tab li");
+        var tabProduct = tab[0];
+        var tabProgram = tab[1];
+        addEvent(tabProduct,"click",function(event){
+            tabProduct.setAttribute("class","z-sel");
+            tabProgram.setAttribute("class","");
+            reqstData.type = 10;
+            reqstData.pageNo = 1;
+            changePage(courseUrl,reqstData);
+        })  
+        addEvent(tabProgram,"click",function(event){
+            tabProgram.setAttribute("class","z-sel");
+            tabProduct.setAttribute("class","");
+            reqstData.type = 20;
+            reqstData.pageNo = 1;
+            changePage(courseUrl,reqstData);
+        })  
+    })();
+    
+    /* 为翻页器添加单击事件 */
+    (function addClickEvent(){
+        var pageNode = document.querySelector(".m-courses .m-pages"); // 翻页器模块节点
+        var allPages = pageNode.querySelectorAll("ul li");   // 所有页码集合节点
+        var prePageNode = pageNode.querySelectorAll("img")[0]; // 前翻页节点
+        var nextPageNode = pageNode.querySelectorAll("img")[1]; // 后翻页节点
+        /* 为前翻页和后翻页节点添加单击事件监听 */     
+        addEvent(prePageNode,"click",function(event){
+            if(reqstData.pageNo>1){
+                reqstData.pageNo = reqstData.pageNo-1;
+                changePage(courseUrl,reqstData); 
+            }                     
+        });
+        addEvent(nextPageNode,"click",function(event){
+            if(reqstData.pageNo<page.total){
+                reqstData.pageNo = parseInt(reqstData.pageNo)+1;
+                changePage(courseUrl,reqstData); 
+            }
+        }); 
+        /* 为所有页码添加单击事件监听 */ 
+        for(var i=0;i<8;i++){
+            (function(_i){
+                addEvent(allPages[_i],"click",function(event){
+                    reqstData.pageNo = allPages[_i].innerHTML;
+                    changePage(courseUrl,reqstData);               
+                })  
+            })(i);          
+        }        
+    })();
 }
-
-
 /*
  *功能点六
  *获取热门课程推荐
@@ -521,17 +581,118 @@ function initHotCourses(){
 	},5000);
 }
 
+/*
+ *功能点七
+ *视频弹窗
+ */
+function initVideo(){
+    var videoNode = document.querySelector(".m-video");
+    var video = videoNode.querySelector("video");
+    var openNode = document.querySelector(".m-courses .video img");
+    var closeNode = videoNode.querySelector(".u-clos");
+    var startNode = videoNode.querySelector(".u-play span");
+    var progrsBar = videoNode.querySelector(".progrsBar");
+    //单击图片打开视频弹窗
+    addEvent(openNode,"click",function(event){
+        if(navigator.userAgent.indexOf("MSIE 8.0")>0){
+            alert("您的浏览器版本太低，不支持video标签，请升级后再观看，谢谢~");
+        }else{
+            videoNode.style.display = "block";
+            video.load();
+            video.play();
+            // 使用闭包函数，初始化视频的控件
+            (function initVideoCtrl(){
+                video.removeAttribute("controls");
+                startNode.setAttribute("class","pause");
+
+                // 控制开始或暂停播放
+                var playNode = videoNode.querySelector(".u-play");
+                addEvent(playNode,"click",function(event){
+                     switchPlayPause(video,startNode); 
+                });  
+
+                // 更新播放进度条 
+                addEvent(video,"timeupdate",function(event){
+                    var played = videoNode.querySelector(".played");
+                    var loaded = videoNode.querySelector(".loaded");
+                    var passedTime = videoNode.querySelector(".time .passed");
+                    var totalTime = videoNode.querySelector(".time .total");  
+                    updateProgrs(video,played,loaded,passedTime,totalTime);    
+                });
+                // 单击更新播放进度条 
+                addEvent(progrsBar,"click",function(event){
+                    var event = event || window.event;
+                    var leftlength = (document.body.clientWidth-950)/2+30;
+                    var lengthTime = (event.clientX - leftlength)/886*video.duration;
+                    video.currentTime = lengthTime;
+                })
+
+            })();
+        }        
+    });
+    //单击关闭图标，关闭视频弹窗
+    addEvent(closeNode,"click",function(event){
+        videoNode.style.display = "none";
+        video.pause();
+    });
+}
+/*
+ *功能:播放或暂停视频，同时切换按钮状态
+ *输入:要控制的视频节点，切换播放或暂停状态的按钮节点
+ */
+function switchPlayPause(video,startNode){   
+    if (video.paused || video.ended) {
+        startNode.setAttribute("class","pause");
+        video.play();
+    }
+    else {
+        startNode.setAttribute("class","start");
+        video.pause();
+    }
+}
+/*
+ *功能:更新进度条和缓存条，显示视频已播放时间以及总时间
+ *输入:要控制的视频节点、进度条节点、缓存条节点、已播放时间
+ *     的显示节点、总时间的显示节点
+ */
+function updateProgrs(video,played,loaded,passedTime,totalTime){     
+    function changeNumber(num){
+        num = parseInt(num);
+        if(num<10){
+            return '0'+num;
+        }else{
+            return num;
+        }
+    }
+    var passedMinutes = changeNumber(video.currentTime/60);    
+    var passedMilliseconds = changeNumber(video.currentTime%60);    
+    var totalMinutes = changeNumber(video.duration/60);
+    var totalMilliseconds = changeNumber(video.duration%60);
+    
+    var passed = 0; // 存进度条百分比
+    var downloaded = 0; // 存缓存条百分比
+    if(video.currentTime>0){
+        passed = Math.floor((video.currentTime/video.duration)*100);
+    }
+    if(video.buffered.end(0)>0){
+        downloaded = Math.floor((video.buffered.end(0)/video.duration)*100);
+    }
+    played.style.width = passed + '%';
+    loaded.style.width = downloaded + '%';
+    passedTime.innerHTML = passedMinutes +':'+ passedMilliseconds + '&nbsp;';
+    totalTime.innerHTML = '/&nbsp;' + totalMinutes + ':'+ totalMilliseconds;
+}
+
 
 addEvent(window,"load",function(event){
-	// Cookie.unset("tips");
-	// Cookie.unset("loginSuc");
-	// Cookie.unset("followSuc");
+    responsive(); // 兼容IE8的响应式 
 	closeTips();
 	ifFocused();
-	initFoucusEvent();
+    initFoucusEvent();
 	initBanner();
 	initMainCourses();
 	initHotCourses();
+    initVideo();
 })
 
 

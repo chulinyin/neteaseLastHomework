@@ -3,7 +3,6 @@
 	padding: 0;
 }
 body{
-	height: 2915px;
 	font: 12px "Microsoft YaHei" ;	
 }
 .clearfix:after{
@@ -27,6 +26,9 @@ img,span,ul,li{
 	display: inline-block;
 	vertical-align: middle;
 } 
+button{
+	border: none;
+}
 
 /* 顶部通知条 */
 .m-remder{
@@ -217,6 +219,7 @@ img,span,ul,li{
 .m-intros .g-intros{
 	width: 1187px;
 	margin:0 auto 61px;
+	font-size:0;
 }
 .m-intros .open,.study,.mooc,.intros{
 	display: inline-block;
@@ -263,20 +266,20 @@ img,span,ul,li{
 	height: 200px;
 	margin-right: 4px;
 }
-.m-office span:first-child{
+.m-office .img1{
 	background: url(../Images/1.jpg);
 	margin-left: -134px;
 }
-.m-office span:nth-child(2){
+.m-office .img2{
 	background: url(../Images/2.jpg);
 }
-.m-office span:nth-child(3){
+.m-office .img3{
 	background: url(../Images/3.jpg);
 }
-.m-office span:nth-child(4){
+.m-office .img4{
 	background: url(../Images/4.jpg);
 }
-.m-office span:nth-child(5){
+.m-office .img5{
 	background: url(../Images/5.jpg);
 	margin-right: -134px;
 }
@@ -634,9 +637,9 @@ img,span,ul,li{
 	display: inline-block;
 	vertical-align: top;
 }
-.m-footer .about p:nth-child(4) img{
+.m-footer .about p img{
 	margin-left: 11px;
-	margin-right: 73px;
+	margin-right: 60px;
 }
 .m-footer .more{
 	display: inline-block;
@@ -646,14 +649,16 @@ img,span,ul,li{
 /* 
  * 登录弹窗
  */
-.m-login{
+.m-login .mask{
 	position: fixed;
 	top:0;
 	left:0;
 	width: 100%;
 	height: 100%;
-	z-index: 999;
-	background-color: rgba(0,0,0,0.8);
+	z-index: 800;
+	background-color: #000;
+	opacity: 0.8;
+	filter:alpha(opacity=80);	
 }
 
 .m-login .g-login{
@@ -664,7 +669,7 @@ img,span,ul,li{
 	height: 288px;
 	margin-left: -194px;
 	margin-top: -144px;
-	z-index:10;
+	z-index:999;
 	background: #fff;
 	padding-left: 39px;
 
@@ -711,7 +716,162 @@ img,span,ul,li{
 	border: none;
 }
 
+/* 
+ * 视频弹窗
+ */
+.m-video .mask{
+	position: fixed;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	z-index: 800;
+	background-color: #000;
+	opacity: 0.8;
+	filter:alpha(opacity=80);	
+}
 
+.m-video .g-video{
+	position: fixed;
+	top:50%;
+	left: 50%;
+	width: 950px;
+	height: 676px;
+	box-sizing: border-box;
+	margin-left: -475px;
+	margin-top: -338px;
+	z-index:999;
+	background: #fff;
+	padding-left: 30px;
+	font-size: 0;
+
+}
+.m-video .g-video .u-clos{
+	float: right;
+	width: 9px;
+	height: 9px;
+	margin-top: 20px;
+	margin-right: 16px;
+	background: url(../Images/closeVideo.png);
+	cursor: pointer;
+}
+.m-video .g-video p{
+	margin-top: 29px;
+	margin-bottom: 22px;
+	font: bold 18px "Micsoft YaHei","serif";
+	color: #444;
+}
+.m-video .videoCtaner{
+	width: 886px;
+	height: 530px;
+	margin-right: 30px;
+}
+.m-video .videoCtaner video{
+	width:100%;
+	height: 94%;
+}
+
+.m-video .controls{
+	width:100%;
+	height:6%;
+}
+
+.m-video .controls .cntrlBar{
+	height: 80%;
+	background-color: #2e2e2e;
+	background-image:linear-gradient(#393939,#292929);
+}
+
+.m-video .cntrlBar .u-play{
+	float:left;
+	height: 100%;
+	width: 25px;
+	box-sizing:border-box;
+	padding-top: 7px;
+	text-align: center;
+	border-right: 1px solid #262626;
+	cursor: pointer;
+	
+}
+
+.m-video .cntrlBar .u-play .start{
+	width: 9px;
+	height: 12px;
+	background: url(../Images/videoIcon.png);	
+	cursor: pointer;
+}
+.m-video .cntrlBar .u-play .pause{
+	width: 10px;
+	height: 12px;
+	background: url(../Images/videoIcon.png) -12px 0;	
+	cursor: pointer;
+}
+.m-video .cntrlBar .u-logo{
+	float: right;
+	width: 66px;
+	height: 100%;
+	border-left: 1px solid #262626;
+	font-size: 0;
+}
+.m-video .cntrlBar .u-logo .logo{
+	width: 13px;
+	height: 14px;
+	margin: 5px;
+	background: url(../Images/logo_video.png) 0 0/contain;
+}
+.m-video .cntrlBar .u-logo .name{
+	margin: 5px 0;
+	font:10px "Microsoft YaHei","serif";
+	color: #ddd;
+}
+.m-video .cntrlBar .u-middle{
+	height: 100%;
+	width: 795px;
+	box-sizing: border-box;
+	margin-left: 25px;
+	padding-left: 11px;
+	font-size: 0;
+}
+.m-video .cntrlBar .time span{
+	font: 10px/25px "Microsoft YaHei","serif";	
+}
+.m-video .cntrlBar .time .passed{
+	color: #989898;
+}
+.m-video .cntrlBar .time .total{
+	color: #595959;
+}
+
+.m-video .controls .progrsBar{
+	position: relative;
+	height: 20%;
+	background-color: #393939;
+	cursor: pointer;
+}
+.m-video .controls .progrsBar .loaded{
+	position: absolute;
+	height: 100%;
+	width: 0%;
+	background-color: #555;
+	z-index: 2;
+}
+.m-video .controls .progrsBar .played{
+	position: relative;
+	height: 100%;
+	width: 0%;
+	background-color: #00a851;
+	z-index: 3;
+}
+.m-video .controls .progrsBar .circle{
+	position: absolute;
+	width: 7px;
+	height: 7px;
+	right: -3px;
+	border-radius: 50%;
+	background-color: #fff;
+
+
+}
 @media screen and (max-width: 1206px) {	
     .m-remder .g-remder,
     .m-nav .g-nav,
