@@ -15,12 +15,14 @@ function getElementsByClassName(element, names) {
         if (element.getElementsByClassName) {
             return element.getElementsByClassName(names);
         } else {
+            //获取输入元素的所有后代元素
             var elements = element.getElementsByTagName('*');
             var result = [];
             var element,
                 classNameStr,
                 flag;
             names = names.split(' ');
+            //过滤获取具有指定类名的元素
             for (var i = 0; element = elements[i]; i++) {
                 classNameStr = ' ' + element.className + ' ';
                 flag = true;
@@ -59,10 +61,10 @@ var Cookie = {
 			cookieText += "; expires=" + expires.toGMTString();
 		}
 		if(path){
-			cookieText += "; path" + path;
+			cookieText += "; path=" + path;
 		}
 		if(domain){
-			cookieText += "; domain" + domain;
+			cookieText += "; domain=" + domain;
 		}
 		if(secure){
 			cookieText += "; secure";
@@ -87,7 +89,7 @@ function ajax(method,url,isAsync,senddata,callback){
 	        }
 	    }
 	};
-	xhr.open("get",url,isAsync);
+	xhr.open(method,url,isAsync);
 	xhr.send(senddata);
 }
 
@@ -99,8 +101,6 @@ function serialize(url,data){
     if(!data) return "";
     var pairs = [];
     for(var name in data){
-        if(!data.hasOwnProperty(name)) continue;
-        if(typeof data[name] == "function") continue;
         var value = data[name].toString();
         name = encodeURIComponent(name);
         value = encodeURIComponent(value);
@@ -240,7 +240,6 @@ function initLogin (){
             event.returnValue = false;
         }
 		
-        debugger;
 		// 账密验证登录
 		var v_userName = loginForm.elements['userName'].value;
 		var v_password = loginForm.elements['password'].value;
@@ -351,7 +350,6 @@ function getcourse(courseUrl,reqstData){
         obj = text;
     }
     ajax("get",courseUrl,false,null,callback);  
-    // var id = setInterval(function(){},1000);
     return obj;
 }
 
@@ -608,9 +606,8 @@ function initVideo(){
                 // 控制开始或暂停播放
                 var playNode = videoNode.querySelector(".u-play");
                 addEvent(playNode,"click",function(event){
-                     switchPlayPause(video,startNode); 
+                      (video,startNode); 
                 });  
-
                 // 更新播放进度条 
                 addEvent(video,"timeupdate",function(event){
                     var played = videoNode.querySelector(".played");
